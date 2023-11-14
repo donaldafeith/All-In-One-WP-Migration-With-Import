@@ -34,17 +34,19 @@ class Ai1wm_Recursive_Extension_Filter extends RecursiveFilterIterator {
 		$this->include = $include;
 	}
 
-	public function accept() {
-		if ( $this->getInnerIterator()->isFile() ) {
-			if ( ! in_array( pathinfo( $this->getInnerIterator()->getFilename(), PATHINFO_EXTENSION ), $this->include ) ) {
-				return false;
-			}
-		}
+public function accept(): bool {
+    if ($this->getInnerIterator()->isFile()) {
+        if (!in_array(pathinfo($this->getInnerIterator()->getFilename(), PATHINFO_EXTENSION), $this->include)) {
+            return false;
+        }
+    }
 
-		return true;
-	}
+    return true;
+}
 
-	public function getChildren() {
-		return new self( $this->getInnerIterator()->getChildren(), $this->include );
-	}
+
+public function getChildren(): ?RecursiveFilterIterator {
+    return new self($this->getInnerIterator()->getChildren(), $this->include);
+}
+
 }

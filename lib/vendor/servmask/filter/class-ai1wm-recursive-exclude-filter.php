@@ -34,11 +34,13 @@ class Ai1wm_Recursive_Exclude_Filter extends RecursiveFilterIterator {
 		$this->exclude = $exclude;
 	}
 
-	public function accept() {
-		return ! in_array( $this->getInnerIterator()->getSubPathname(), $this->exclude );
-	}
+public function accept(): bool {
+    return !in_array($this->getInnerIterator()->getSubPathname(), $this->exclude);
+}
 
-	public function getChildren() {
-		return new self( $this->getInnerIterator()->getChildren(), $this->exclude );
-	}
+
+public function getChildren(): ?RecursiveFilterIterator {
+    return new self($this->getInnerIterator()->getChildren(), $this->exclude);
+}
+
 }

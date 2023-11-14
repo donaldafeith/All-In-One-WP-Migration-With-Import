@@ -25,8 +25,9 @@
 
 class Ai1wm_Recursive_Newline_Filter extends RecursiveFilterIterator {
 
-	public function accept() {
-		return strpos( $this->getInnerIterator()->getSubPathname(), "\n" ) === false &&
-			strpos( $this->getInnerIterator()->getSubPathname(), "\r" ) === false;
-	}
+public function accept(): bool {
+    return strpos($this->getInnerIterator()->getSubPathname(), "\n") === false &&
+        strpos($this->getInnerIterator()->getSubPathname(), "\r") === false;
+}
+
 }
